@@ -1,0 +1,5 @@
+site_name: Soap client
+site_url: https://mydomain.org/mysite
+
+theme:
+  name: material
