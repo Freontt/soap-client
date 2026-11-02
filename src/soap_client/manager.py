@@ -22,8 +22,7 @@ class SoapClientManager:
         client (``zeep.AsyncClient | None``): SOAP-клиент.
     """
 
-    def __init__(self, settings: BaseSoapClientSettings, *,
-        timeout: int = 120) -> None:
+    def __init__(self, settings: BaseSoapClientSettings, *, timeout: int = 120) -> None:
         """Инициализатор класса ``SoapClientManager``.
 
         Args:

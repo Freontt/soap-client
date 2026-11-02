@@ -8,6 +8,7 @@ from soap_client.settings import BaseSoapClientSettings
 
 class SoapRegistry:
     """Класс для запуска, настройки, проверки и закрытия SOAP-клиентов."""
+
     def __init__(self, settings: Mapping[str, BaseSoapClientSettings]) -> None:
         """Инициализатор класса ``SoapRegistry``.
 
@@ -16,7 +17,6 @@ class SoapRegistry:
         """
         self._settings = settings
         self._clients: dict[str, SoapClientManager] = {}
-
 
     def init_all(self) -> None:
         """Инициализация всех клиентов."""
