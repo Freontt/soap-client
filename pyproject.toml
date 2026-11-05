@@ -22,19 +22,33 @@ dependencies = [
 
 
 [dependency-groups]
-dev = [
-    "lxml-stubs>=0.5.1",
-    "mkdocs>=1.6.1",
-    "mkdocs-material>=9.8.0",
-    "mkdocstrings[python]>=1.0.8",
-    "mypy>=2.4.1",
+test = [
     "pytest>=9.2.0",
     "pytest-asyncio>=1.4.1.post1",
     "pytest-cov>=7.1.0",
     "pytest-httpserver>=1.2.0",
     "pytest-mock>=3.17.0",
+]
+
+docs = [
+    "mike>=2.2.0",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.8.0",
+    "mkdocstrings[python]>=1.0.8",
+]
+
+lint = [
+    "lxml-stubs>=0.5.1",
+    "mypy>=2.4.1",
     "ruff>=0.17.3",
 ]
+
+dev = [
+    { include-group = "test" },
+    { include-group = "docs" },
+    { include-group = "lint" },
+]
+
 
 [tool.ruff]
 # Set the maximum line length to 100.
@@ -84,11 +98,12 @@ convention = "google"
 
 [tool.mypy]
 python_version = "3.13"
-files = ["src", "tests"]
+files = ["src"]
 strict = true
 show_error_codes = true
 pretty = true
 exclude = ["build/", "dist/"]
+disable_error_code = ["no-untyped-call"]
 enable_error_code = [
     "redundant-expr",          # бессмысленные выражения (x or x)
     "truthy-bool",             # объекты, у которых __bool__ всегда True

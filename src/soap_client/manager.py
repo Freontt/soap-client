@@ -2,7 +2,7 @@
 
 import logging
 from asyncio import Semaphore
-from typing import cast
+from typing import Any, cast
 
 from aiolimiter import AsyncLimiter
 from zeep import AsyncClient
@@ -66,16 +66,17 @@ class SoapClientManager:
         """Свойство - инициализирован ли SOAP-клиент из zeep.
 
         Returns:
-            bool: Если инициализирован - ``true``, иначе ``false``.
+            ``bool``: Если инициализирован - ``true``, иначе ``false``.
         """
         return self.client is not None
 
-    async def load(self, action: str, params: dict | None = None) -> object:
+    async def load(self, action: str, params: dict[str, Any] | None = None) -> object:
         """Вызывает SOAP-метод по имени.
 
         Args:
             action (``str``): Имя метода, как объявлено в WSDL.
-            params (``dict | None``): Параметры, которые необходимо отправить вместе с действием.
+            params (``dict[str, Any] | None``): Параметры, которые
+                необходимо отправить вместе с действием.
 
         Returns:
             ``object``: Результат, который вернул ``zeep`` клиент.

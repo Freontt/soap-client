@@ -1,5 +1,7 @@
 """Файл хранит классы-исключения."""
 
+from typing import Any
+
 
 class SoapError(ConnectionError):
     """Ошибка при обращении к SOAP-методу.
@@ -7,7 +9,7 @@ class SoapError(ConnectionError):
     Используется в исключениях связанных с ``SoapClientManager``.
     """
 
-    def __init__(self, action: str, detail: str, params: dict | None = None) -> None:
+    def __init__(self, action: str, detail: str, params: dict[Any, Any] | None = None) -> None:
         """Инициализатор класса ``SoapError``.
 
         Args:

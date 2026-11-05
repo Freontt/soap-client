@@ -9,7 +9,12 @@ from soap_client.settings import BaseSoapClientSettings
 logger = logging.getLogger(__name__)
 
 class SoapRegistry:
-    """Класс для запуска, настройки, проверки и закрытия SOAP-клиентов."""
+    """Класс для запуска, настройки, проверки и закрытия SOAP-клиентов.
+
+    See Also:
+    - :class:`SoapClientManager`: Менеджер SOAP-клиента.
+    - :class:`BaseSoapClientSettings`: Базовый класс настроек.
+    """
 
     def __init__(self, settings: Mapping[str, BaseSoapClientSettings]) -> None:
         """Инициализатор класса ``SoapRegistry``.
