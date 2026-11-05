@@ -1,4 +1,4 @@
-"""Файл определяет классы с настройками данной интеграции."""
+"""File contains implementation of the BaseSoapClientSettings and helpful function."""
 
 from pathlib import Path
 
@@ -14,7 +14,7 @@ class BaseSoapClientSettings(BaseSettings):
         login (``str``): Логин, по которому происходит вход.
         password (``str``): Пароль, по которому происходит вход.
         max_concurrent (``int``): Максимально число одновременных вызовов.
-        rate_limit (``int``): Максимальное число запросов в секунду
+        rate_limit (``int``): Максимальное число запросов в секунду.
 
     Note:
         - Используется для создания пользовательских типов конфигураций.
@@ -25,8 +25,8 @@ class BaseSoapClientSettings(BaseSettings):
 
     # Main settings of connection by wsdl
     wsdl: str = Field(min_length=1)
-    login: str = Field(min_length=1)
-    password: str = Field(min_length=1)
+    login: str
+    password: str
     # Settings of the connection load
     max_concurrent: int = Field(gt=0)
     rate_limit: int = Field(gt=0)
