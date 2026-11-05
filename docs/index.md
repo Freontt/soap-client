@@ -34,6 +34,7 @@ pip install soap-client
 ```python
 from soap_client.settings import BaseSoapClientSettings, get_model_config
 
+
 class OneCSettings(BaseSoapClientSettings):
     model_config = get_model_config(env_prefix="ONEC_")
 ```
@@ -64,6 +65,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from registry import registry
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     registry.init_all()
@@ -72,6 +74,7 @@ async def lifespan(app: FastAPI):
     finally:
         await registry.aclose_all()
 
+
 app = FastAPI(lifespan=lifespan)
 ```
 
@@ -79,6 +82,7 @@ app = FastAPI(lifespan=lifespan)
 
 ```python
 from registry import registry
+
 
 async def get_counterparty(inn: str) -> dict:
     client = registry.get("onec")

@@ -8,6 +8,7 @@ from soap_client.settings import BaseSoapClientSettings
 
 logger = logging.getLogger(__name__)
 
+
 class SoapRegistry:
     """Класс для запуска, настройки, проверки и закрытия SOAP-клиентов.
 
@@ -61,8 +62,7 @@ class SoapRegistry:
                 list(self._settings),
             )
             raise KeyError(
-                f"Unknown soap client: {soap_client_name!r}. "
-                f"Available: {list(self._settings)!r}"
+                f"Unknown soap client: {soap_client_name!r}. Available: {list(self._settings)!r}"
             )
         if soap_client_name not in self._clients:
             logger.debug("Creating client %r", soap_client_name)

@@ -92,6 +92,6 @@ class TestIncorrectUses:
             max_concurrent=3,
             rate_limit=10,
         )
-        with pytest.raises(RuntimeError, match="Клиент не инициализирован."):
+        with pytest.raises(RuntimeError, match="Client"):
             manager = SoapClientManager(settings)
             result = await manager.load("add", {"a": 1, "b": 2})

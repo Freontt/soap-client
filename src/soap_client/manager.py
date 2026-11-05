@@ -14,6 +14,7 @@ from soap_client.settings import BaseSoapClientSettings
 
 logger = logging.getLogger(__name__)
 
+
 class SoapClientManager:
     """Класс-обёртка над клиентом zeep для работы с 1с.
 
