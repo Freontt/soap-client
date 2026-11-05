@@ -46,7 +46,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - run: uv sync --only-group test
-      - run: uv run pytest --cov=my_lib --cov-report=term-missing --cov-fail-under=90
+      - run: uv run pytest --cov=soap_client --cov-report=term-missing --cov-fail-under=90
 
   docs:
     runs-on: ubuntu-latest
