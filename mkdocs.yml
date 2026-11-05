@@ -1,5 +1,19 @@
-site_name: Soap client
-site_url: https://mydomain.org/mysite
+site_name: Soap Client
+site_url: https://example.com/soap-client/
 
 theme:
   name: material
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+
+nav:
+  - Главная: index.md
+  - API: api.md
