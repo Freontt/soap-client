@@ -39,7 +39,11 @@ class SoapClientManager:
         logger.debug("Manager created for wsdl=%r", settings.wsdl)
 
     def init(self) -> None:
-        """Инициализирует единоразово в lifespan FastAPI zeep-клиент и настраивает подключение."""
+        """Создаёт zeep-клиент и настраивает подключение.
+
+        Note:
+            Необходимо единоразово вызвать (к примеру: в ``lifespan`` FastAPI).
+        """
         logger.debug("Initializing client for wsdl=%r", self.settings.wsdl)
         if self.is_initialized:
             logger.warning("Trying to init client when that inited already.")
@@ -50,6 +54,7 @@ class SoapClientManager:
                 operation_timeout=self.timeout,
             )
             if self.settings.login and self.settings.password:
+                transport.wsdl_client.auth = (self.settings.login, self.settings.password)
                 transport.client.auth = (self.settings.login, self.settings.password)
             else:
                 logger.debug("No auth credentials provided; skipping Basic auth")
