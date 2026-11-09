@@ -57,12 +57,6 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
@@ -77,5 +71,21 @@ jobs:
         with:
           path: site/
       - id: deployment
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  
+
+  deploy-docs:
+    needs: docs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
         uses: actions/deploy-pages@v5
