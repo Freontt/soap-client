@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [dev, main]
   pull_request:
 
 permissions:
@@ -17,19 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
         with:
           enable-cache: true
           python-version: "3.13"
 
-      - run: uv sync --only-group lint
-
+      - run: uv sync --group lint
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run mypy
 
+  
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 3
@@ -38,34 +37,45 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12", "3.13", "3.14"]
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
         with:
           enable-cache: true
           python-version: ${{ matrix.python-version }}
 
-      - run: uv sync --only-group test
-      - run: uv run pytest --cov=soap_client --cov-report=term-missing --cov-fail-under=90
+      - run: uv sync --group test
+      - run: uv run pytest --cov=soap_client --cov-report=term-missing --cov-fail-under=90 --cov-report=markdown
+      
+      - uses: actions/upload-artifact@v7
+        if: matrix.python-version == '3.13'
+        with:
+          name: coverage
+          path: coverage.md
+          if-no-files-found: ignore
 
+  
   docs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
         with:
           enable-cache: true
           python-version: "3.13"
 
-      - run: uv sync --only-group docs
-
-      - name: Build docs (strict)
+      - run: uv sync --group docs
         run: uv run mkdocs build --strict
 
-      - name: Deploy to GitHub Pages
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/
+      - id: deployment
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: uv run mkdocs gh-deploy --force
+        uses: actions/deploy-pages@v7

@@ -6,12 +6,13 @@ build-backend = "uv_build"
 [project]
 name = "soap-client"
 version = "0.1.0"
-description = "Add your description here"
+description = "SOAP client for working with services using SOAP and WSDL."
 readme = "README.md"
+license = "MIT"
 authors = [
-    { name = "Freontt", email = "kudryavcev300505@gmail.com" }
+    { name = "Freontt", email = "freontt.public@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "aiolimiter>=1.3.0",
     "lxml>=6.1.3",
@@ -19,6 +20,12 @@ dependencies = [
     "pydantic-settings>=2.16.2",
     "zeep[async]>=4.3.3",
 ]
+
+
+[project.urls]
+Homepage = "https://freontt.github.io/soap-client/"
+Repository = "https://github.com/Freontt/soap-client"
+Issues = "https://github.com/Freontt/soap-client/issues"
 
 
 [dependency-groups]
@@ -105,15 +112,15 @@ pretty = true
 exclude = ["build/", "dist/"]
 disable_error_code = ["no-untyped-call"]
 enable_error_code = [
-    "redundant-expr",          # бессмысленные выражения (x or x)
-    "truthy-bool",             # объекты, у которых __bool__ всегда True
-    "truthy-iterable",         # итералы, всегда truthy
-    "ignore-without-code",     # # type: ignore без кода
-    "possibly-undefined",      # переменная может быть не определена
-    "unused-awaitable",        # забытый await
-    "redundant-self",          # лишний Self в аргументах
-    "explicit-override",       # требовать @override
-    "mutable-override",        # переопределение с изменяемым типом
+    "redundant-expr",       # meaningless expressions (x or x)
+    "truthy-bool",          # objects with __bool__ always True
+    "truthy-iterable",      # literals, always truthy
+    "ignore-without-code",  # # type: ignore without the code
+    "possibly-undefined",   # the variable may not be defined
+    "unused-avoidable",     # forgotten await
+    "redundant-self",       # superfluous Self in arguments
+    "explicit-override",    # require @override
+    "mutable-override",     # redefinition with mutable type
 ]
 
 
@@ -121,5 +128,5 @@ enable_error_code = [
 asyncio_default_fixture_loop_scope = "function"
 asyncio_default_test_loop_scope = "function"
 markers = [
-    "performance: замеры скорости",
+    "performance: speed metering",
 ]
