@@ -9,7 +9,7 @@ from wsdl_fixtures import (
 )
 
 
-@pytest.fixture
+@pytest.fixture()
 def calculator_server(httpserver: HTTPServer) -> HTTPServer:
     endpoint = httpserver.url_for("/")
     wsdl = CALCULATOR_WSDL.replace("ENDPOINT", endpoint)
@@ -25,7 +25,7 @@ def calculator_server(httpserver: HTTPServer) -> HTTPServer:
 @pytest.fixture
 def timestamp_server() -> HTTPServer:
     """Отдельный сервер на своём порту — не конфликтует с httpserver."""
-    server = HTTPServer()
+    server = HTTPServer(threaded=True)
     server.start()
     endpoint = server.url_for("/")
     server.expect_request("/", method="GET").respond_with_data(

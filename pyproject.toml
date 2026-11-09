@@ -117,7 +117,7 @@ enable_error_code = [
     "truthy-iterable",      # literals, always truthy
     "ignore-without-code",  # # type: ignore without the code
     "possibly-undefined",   # the variable may not be defined
-    "unused-avoidable",     # forgotten await
+    "unused-awaitable",     # forgotten await
     "redundant-self",       # superfluous Self in arguments
     "explicit-override",    # require @override
     "mutable-override",     # redefinition with mutable type
