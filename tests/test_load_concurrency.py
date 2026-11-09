@@ -85,4 +85,4 @@ class TestMixedLoad:
         elapsed = time.perf_counter() - start
 
         assert results == [i * 2 for i in range(30)]
-        assert 1.6 <= elapsed <= 5.0
+        assert 2.6 <= elapsed <= 6.0

@@ -1,6 +1,7 @@
 """WSDL-контракты и динамические хендлеры для мок-серверов."""
 from lxml import etree
 from werkzeug.wrappers import Response
+from time import sleep
 
 # ---------- calculator contract ----------
 CALCULATOR_NS = "http://example.com/calculator"
@@ -157,7 +158,7 @@ def calculator_handler(request):
             f"<ns0:echoResult>{text}</ns0:echoResult>"
             f"</ns0:echoResponse>"
         )
-
+    sleep(0.1)
     return Response(
         soap_envelope(body),
         status=200,
@@ -171,6 +172,7 @@ def timestamp_handler(request):
         f"<ns0:nowResult>{FIXED_NOW}</ns0:nowResult>"
         f"</ns0:nowResponse>"
     )
+    sleep(0.1)
     return Response(
         soap_envelope(body),
         status=200,
