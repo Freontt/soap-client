@@ -70,7 +70,6 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site/
-      - id: deployment
   
 
   deploy-docs:
